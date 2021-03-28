@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+    db:
+        image: mysql:8.0.20
+        command: --default-authentication-plugin=mysql_native_password
+        volumes:
+            - "db_app:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        ports:
+            - 3306:3306
+        networks:
+            - zikula
+    php:
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+            args:
+                TIMEZONE: ${TIMEZONE}
+        volumes:
+            - ./../core/:/var/www/zikula/
+        networks:
+            - zikula
+    nginx:
+        build:
+            context: .
+            dockerfile: docker/nginx/Dockerfile
+        volumes:
+            - ./../core/:/var/www/zikula/
+        ports:
+            - 80:80
+        networks:
+#            - zikula
+            zikula:
+                aliases:
+                    - zikula.localhost
+
+volumes:
+    db_app:
+
+networks:
+    zikula:
