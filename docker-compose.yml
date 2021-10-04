@@ -20,7 +20,8 @@ services:
             context: .
             dockerfile: docker/php/Dockerfile
             args:
-                TIMEZONE: ${TIMEZONE}
+                - TIMEZONE=${TIMEZONE}
+                - INSTALL_YARN=${INSTALL_YARN}
         volumes:
             - ./../core/:/var/www/zikula/
         networks:
