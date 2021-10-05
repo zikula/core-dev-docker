@@ -25,7 +25,7 @@ services:
                 - NODE_VERSION=${NODE_VERSION}
                 - INSTALL_YARN=${INSTALL_YARN}
         volumes:
-            - ./../core/:/var/www/zikula/
+            - ${APP_PATH}:/var/www/zikula/
         ports:
             - ${PORT_PHPDEV:-9000}:9000
         networks:
@@ -35,7 +35,7 @@ services:
             context: .
             dockerfile: docker/nginx/Dockerfile
         volumes:
-            - ./../core/:/var/www/zikula/
+            - ${APP_PATH}:/var/www/zikula/
         ports:
             - ${PORT_HTTP:-80}:80
             - ${PORT_HTTPS:-443}:443
