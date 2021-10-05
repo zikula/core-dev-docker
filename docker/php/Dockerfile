@@ -33,4 +33,14 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+ARG INSTALL_NODE=false
+ARG NODE_VERSION=8.10.0
+RUN if [ ${INSTALL_NODE} = true ]; then \
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.38.0/install.sh | bash && \
+    export NVM_DIR="$HOME/.nvm" && \
+    . "$NVM_DIR/nvm.sh" && \
+    nvm install ${NODE_VERSION} && \
+    nvm use v${NODE_VERSION} \
+;fi
+
 WORKDIR /var/www/zikula

@@ -20,7 +20,9 @@ services:
             context: .
             dockerfile: docker/php/Dockerfile
             args:
-                TIMEZONE: ${TIMEZONE}
+                - TIMEZONE=${TIMEZONE}
+                - INSTALL_NODE=${INSTALL_NODE}    
+                - NODE_VERSION=${NODE_VERSION}                  
         volumes:
             - ./../core/:/var/www/zikula/
         ports:
