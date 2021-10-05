@@ -12,7 +12,7 @@ services:
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         ports:
-            - 3306:3306
+            - ${PORT_DATABASE:-3306}:3306
         networks:
             - zikula
     php:
@@ -24,6 +24,8 @@ services:
                 - INSTALL_YARN=${INSTALL_YARN}
         volumes:
             - ./../core/:/var/www/zikula/
+        ports:
+            - ${PORT_PHPDEV:-9000}:9000
         networks:
             - zikula
     nginx:
@@ -33,13 +35,25 @@ services:
         volumes:
             - ./../core/:/var/www/zikula/
         ports:
-            - 80:80
+            - ${PORT_HTTP:-80}:80
+            - ${PORT_HTTPS:-443}:443
         networks:
 #            - zikula
             zikula:
                 aliases:
                     - zikula.localhost
-
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            - PMA_ARBITRARY=1
+        ports:
+            - ${PORT_PHPMYADMIN:-8080}:80
+        volumes:
+            - /sessions
+        links:
+            - db
+        networks:
+            - zikula
 volumes:
     db_app:
 
