@@ -6,6 +6,7 @@ services:
         command: --default-authentication-plugin=mysql_native_password
         volumes:
             - "db_app:/var/lib/mysql"
+            - "./etc/db/dumps:/var/tmp/dumps"
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
