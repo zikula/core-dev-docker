@@ -21,6 +21,8 @@ services:
             dockerfile: docker/php/Dockerfile
             args:
                 - TIMEZONE=${TIMEZONE}
+                - INSTALL_NODE=${INSTALL_NODE}    
+                - NODE_VERSION=${NODE_VERSION}
                 - INSTALL_YARN=${INSTALL_YARN}
         volumes:
             - ./../core/:/var/www/zikula/
