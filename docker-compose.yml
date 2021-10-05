@@ -14,8 +14,7 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         ports:
             - ${PORT_DATABASE:-3306}:3306
-        networks:
-            - zikula
+
     php:
         build:
             context: .
@@ -29,8 +28,7 @@ services:
             - ${APP_PATH}:/var/www/
         ports:
             - ${PORT_PHPDEV:-9000}:9000
-        networks:
-            - zikula
+
     nginx:
         build:
             context: .
@@ -40,11 +38,7 @@ services:
         ports:
             - ${PORT_HTTP:-80}:80
             - ${PORT_HTTPS:-443}:443
-        networks:
-#            - zikula
-            zikula:
-                aliases:
-                    - zikula.localhost
+
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         environment:
@@ -55,10 +49,5 @@ services:
             - /sessions
         links:
             - db
-        networks:
-            - zikula
 volumes:
     db_app:
-
-networks:
-    zikula:
