@@ -41,7 +41,18 @@ services:
             zikula:
                 aliases:
                     - zikula.localhost
-
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            - PMA_ARBITRARY=1
+        ports:
+            - ${PORT_PHPMYADMIN:-8080}:80
+        volumes:
+            - /sessions
+        links:
+            - db
+        networks:
+            - zikula
 volumes:
     db_app:
 
