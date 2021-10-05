@@ -12,7 +12,7 @@ services:
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         ports:
-            - 3306:3306
+            - ${PORT_DATABASE:-3306}:3306
         networks:
             - zikula
     php:
@@ -23,6 +23,8 @@ services:
                 TIMEZONE: ${TIMEZONE}
         volumes:
             - ./../core/:/var/www/zikula/
+        ports:
+            - ${PORT_PHPDEV:-9000}:9000
         networks:
             - zikula
     nginx:
@@ -32,7 +34,8 @@ services:
         volumes:
             - ./../core/:/var/www/zikula/
         ports:
-            - 80:80
+            - ${PORT_HTTP:-80}:80
+            - ${PORT_HTTPS:-443}:443
         networks:
 #            - zikula
             zikula:
