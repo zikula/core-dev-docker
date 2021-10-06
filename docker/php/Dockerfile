@@ -51,4 +51,4 @@ RUN if [ ${INSTALL_YARN} = true ]; then \
     apt-get update && apt-get install -y yarn \
 ;fi
 
-WORKDIR /var/www/zikula
+WORKDIR /var/www
