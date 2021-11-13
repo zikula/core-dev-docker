@@ -33,6 +33,12 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+ARG INSTALL_SYMFONYCLI=false
+RUN if [ ${INSTALL_SYMFONYCLI} = true ]; then \
+    curl -sS https://get.symfony.com/cli/installer | bash && \
+    mv /root/.symfony/bin/symfony /usr/local/bin/symfony \
+;fi
+
 ARG INSTALL_NODE=false
 ARG NODE_VERSION=8.10.0
 RUN if [ ${INSTALL_NODE} = true ]; then \

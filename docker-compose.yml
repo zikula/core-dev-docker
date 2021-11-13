@@ -21,6 +21,7 @@ services:
             dockerfile: docker/php/Dockerfile
             args:
                 - TIMEZONE=${TIMEZONE}
+                - INSTALL_SYMFONYCLI=${INSTALL_SYMFONYCLI}    
                 - INSTALL_NODE=${INSTALL_NODE}    
                 - NODE_VERSION=${NODE_VERSION}
                 - INSTALL_YARN=${INSTALL_YARN}
